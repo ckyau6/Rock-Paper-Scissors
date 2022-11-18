@@ -1,5 +1,6 @@
 
-
+const body = document.querySelector('body');
+const content = document.createElement('p');
 function getComputerChoice(){
     const choices = ["rock", "paper", "scissors"]
     const random = Math.floor(Math.random() *choices.length);
@@ -9,14 +10,30 @@ function getComputerChoice(){
 
 let computerScore = 0;
 let playerScore = 0;
+let playerSelection;
+
+const rock = document.querySelector('#rock');
+    rock.addEventListener('click', () => {
+       playerSelection = "rock";
+       playRound();
+    });
+
+    const scissors = document.querySelector('#sci');
+    scissors.addEventListener('click', () => {
+       playerSelection = "scissors";
+       playRound();
+    });
+
+    const paper = document.querySelector('#paper');
+    paper.addEventListener('click', () => {
+       playerSelection = "paper";
+       playRound();
+    });
 
 function playRound(){
-    let playerReply = prompt("Please enter your choice", " ")
-    const playerSelection = playerReply.toLowerCase();
+       
     const computerSelection = getComputerChoice();
     let result;
-
-
 
     if (playerSelection === computerSelection){
          result="tie";
@@ -51,34 +68,26 @@ function playRound(){
         computerScore++;
     }
     
-    console.log(playerSelection);
-    console.log(computerSelection);
-    console.log(result);
-}
+    showResults();
+    
 
-
-
-
-
-function game(){
-    for (let i = 0; i < 5; i++){
-        playRound();
-    }
-    if (playerScore > computerScore) {
+    if (playerScore == 5) {
         alert("You won the game");
     }
-    else if (playerScore < computerScore) {
-        alert("You lose the game");
+    else if (computerScore == 5){
+        alert("The computer won the game");
     }
-    else if (playerScore == computerScore){
-        alert("It's a freaking tie");
+
+    function showResults(){
+        content.textContent = `Computer chose ${computerSelection}. You chose ${playerSelection}. It's a ${result} for you.`
+        body.appendChild(content);
+    
+        console.log(playerScore);
+        console.log(computerScore);
+        document.querySelector('#playerScore').textContent = playerScore.toString();
+        document.querySelector('#computerScore').textContent = computerScore.toString();
+    
+        
     }
-}
+}   
 
-game();
-/*
-
-    if (computerScore >)
-print "You chose" + playerSelection + ", the computer chose " + computerSelection+ ". You" + result +" this round."
-print "After five games, the winner is " +
-*/
